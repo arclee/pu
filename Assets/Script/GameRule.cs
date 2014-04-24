@@ -95,4 +95,33 @@ public class GameRule : MonoBehaviour {
 			yield return ao;
 		}
 	}
+
+	//FB.
+	void PostToFB()
+	{
+
+		string gameurl = "";
+		if (Application.platform == RuntimePlatform.WindowsWebPlayer)
+		{
+			gameurl = "https://apps.facebook.com/252468178109148/";
+		}
+		else
+		{
+			gameurl = "https://play.google.com/apps/testing/com.ARC1212.PU1212";
+		}
+		FB.Feed(
+			link: gameurl,
+			linkName: "PU 1212",
+			linkCaption: "My Score :" + playerctrl.GetDist().ToString(),
+			linkDescription: "I am good!!",
+			picture: "https://googledrive.com/host/0B0zQPJH0W58oYlFkdkc4ckJKb2c/pu.png",
+			callback: LogCallback
+			);
+
+	}
+
+	void LogCallback(FBResult response) {
+		Debug.Log(response.Text);
+	}
+
 }

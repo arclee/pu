@@ -7,9 +7,15 @@ public class GameTitleMain : MonoBehaviour {
 
 	public int levelID = 0;
 	AsyncOperation ao;
-	
-	GameObject gbFunc;
-	GameObject gbLogin;
+
+	//g+.
+	GameObject gbGPFunc;
+	GameObject gbGPLogin;
+	//fb.
+	GameObject gbFBFunc;
+	GameObject gbFBLogin;
+
+
 	void Awake()
 	{
 		// recommended for debugging:
@@ -24,8 +30,11 @@ public class GameTitleMain : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		gbFunc = GameObject.Find("GPFuncBtn");
-		gbLogin = GameObject.Find("GPluseBtn");
+		gbGPFunc = GameObject.Find("GPFuncBtn");
+		gbGPLogin = GameObject.Find("GPluseBtn");
+		
+		gbFBFunc = GameObject.Find("FBFuncBtn");
+		gbFBLogin = GameObject.Find("FBBtn");
 		GPBtnCheck();
 	}
 	
@@ -37,16 +46,43 @@ public class GameTitleMain : MonoBehaviour {
 	void GPBtnCheck()
 	{
 
-		if (gbFunc)
+		if (gbGPFunc)
 		{
-			gbFunc.SetActive(Social.localUser.authenticated);
+			gbGPFunc.SetActive(Social.localUser.authenticated);
 		}
 
-		if (gbLogin)
+		if (gbGPLogin)
 		{
-			gbLogin.SetActive(!Social.localUser.authenticated);
+			gbGPLogin.SetActive(!Social.localUser.authenticated);
 		}
 
+		if (Application.platform != RuntimePlatform.WindowsWebPlayer)
+		{
+			if (gbFBFunc)
+			{
+				gbFBFunc.SetActive(FB.IsLoggedIn);
+			}
+
+			if (gbFBLogin)
+			{
+				gbFBLogin.SetActive(!FB.IsLoggedIn);
+				
+			}
+		}
+		else
+		{
+			if (gbFBFunc)
+			{
+				gbFBFunc.SetActive(false);
+			}
+			
+			if (gbFBLogin)
+			{
+				gbFBLogin.SetActive(false);
+				
+			}
+
+		}
 
 	}
 
